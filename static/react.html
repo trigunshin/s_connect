@@ -13,6 +13,24 @@
     <script src="/static/js/react_app.js" type="text/jsx"></script>
 </head>
 <body>
-  <div id="content"></div>
+  <div class='row'>
+    <div class='col-md-offset-1 col-md-8'>
+      <div>
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active"><a href="#search" aria-controls="search" role="tab" data-toggle="tab">Search</a></li>
+          <li role="presentation"><a href="#candidates" aria-controls="candidates" role="tab" data-toggle="tab">Candidates</a></li>
+          <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
+          <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="search">
+            <div id="content"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
