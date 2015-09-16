@@ -36,7 +36,7 @@ def submit_candidate():
 
 @app.route('/search')
 def search():
-    data = [_get_job(i+1) for i in range(3)]
+    data = [_get_job(i+1) for i in range(30)]
     return jsonify(data=data)
 
 @app.route('/')
