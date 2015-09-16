@@ -27,12 +27,21 @@ var CandidateForm = React.createClass({
 var Job = React.createClass({
   render: function() {
     return (
-      <div className="job">
-        <h2 className="jobTitle">
-          {this.props.title}
-        </h2>
-        {this.props.children}
-      </div>
+      <button data-job-id={this.props.data.id} type="button" className="list-group-item">
+        <h4 className="list-group-item-heading">{this.props.data.title}</h4>
+        <div className='row'>
+          <label className="col-md-2">Salary</label>
+          <div className="col-md-4">
+            <span>{this.props.data.salary_min}-{this.props.data.salary_max}</span>
+          </div>
+        </div>
+        <div className='row'>
+          <label className="col-md-2">Fee</label>
+          <div className="col-md-4">
+            <span>{this.props.data.fee}%</span>
+          </div>
+        </div>
+      </button>
     );
   }
 });
@@ -41,13 +50,11 @@ var JobList = React.createClass({
   render: function() {
     var jobNodes = this.props.data.map(function (job) {
       return (
-        <Job title={job.title}>
-          {job.description}
-        </Job>
+        <Job key={job.id} data={job} />
       );
     });
     return (
-      <div className="jobList">
+      <div className="list-group">
         {jobNodes}
       </div>
     );
@@ -88,6 +95,7 @@ var JobBox = React.createClass({
       dataType: 'json',
       cache: false,
       success: function(data) {
+        console.log(data);
         this.setState({data: data.data});
       }.bind(this),
       error: function(xhr, status, err) {

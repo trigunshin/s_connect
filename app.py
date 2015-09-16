@@ -18,10 +18,8 @@ def _get_job(counter):
     data = {
         'id': counter,
         'title': 'Test Job %i' % counter,
-        'salary': {
-            'min': 10000 * counter,
-            'max': 15000 * counter
-        },
+        'salary_min': 10000 * counter,
+        'salary_max': 15000 * counter,
         'fee': '%i' % counter,
         'description': "lorem_ipsum"
     }
@@ -36,7 +34,7 @@ def submit_candidate():
 
 @app.route('/search')
 def search():
-    data = [_get_job(i+1) for i in range(30)]
+    data = [_get_job(i+1) for i in range(3)]
     return jsonify(data=data)
 
 @app.route('/')
@@ -45,4 +43,3 @@ def hello_world():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
-
