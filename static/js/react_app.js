@@ -30,30 +30,52 @@ var JobDetail = React.createClass({
 var CandidateForm = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
-    //var text = React.findDOMNode(this.refs.req_search).value.trim();
-    //console.info('search for', text);
-    //this.props.onJobSearchSubmit({title: text});
+    var job_id = React.findDOMNode(this.refs.job_id).value.trim();
+    var name = React.findDOMNode(this.refs.name).value.trim();
+    var email = React.findDOMNode(this.refs.email).value.trim();
+
+    var form_data = new FormData($('#candidate_submit_form')[0]);
+    form_data.append('candidate_name', name);
+    form_data.append('candidate_email', email);
+    form_data.append('job_id', job_id);
+
+    var fileInput = document.getElementById('resume_file');
+    var file = fileInput.files[0];
+    form_data.append('file', file);
+
+    $.ajax({
+        type: 'POST',
+        url: '/submit',
+        data: form_data,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+            console.log('Success!');
+        },
+    });
+
     return;
   },
+
   render: function() {
     return (
-      <form name='submit_form' encType='multipart/form-data'>
-        <input type="hidden" className="form-control" id="candidate_name" placeholder="Name"
+      <form id='candidate_submit_form' name='candidate_submit_form' method="post" encType='multipart/form-data' onSubmit={this.handleSubmit}>
+        <input type="hidden" ref='job_id' className="form-control" id="candidate_name" placeholder="Name"
           value={this.props.current_job.id} required></input>
         <div className="form-group">
           <label htmlFor="candidate_name">Candidate Name</label>
-          <input type="text" className="form-control" id="candidate_name" placeholder="Name" required></input>
+          <input type="text" ref='name' className="form-control" id="candidate_name" placeholder="Name" required></input>
         </div>
         <div className="form-group">
           <label htmlFor="candidate_email">Candidate Email</label>
-          <input type="email" className="form-control" id="candidate_email" placeholder="your@email.com" required></input>
+          <input type="email" ref='email' className="form-control" id="candidate_email" placeholder="your@email.com" required></input>
         </div>
         <div className="form-group">
           <label htmlFor="candidate_resume">Candidate Resume</label>
-          <input type="file" required></input>
+          <input id='resume_file' type="file" ref='resume'   required ></input>
           <p className="help-block">Upload the resume to use for this submission.</p>
         </div>
-        <button type="submit" className="btn btn-default" onSubmit={this.handleSubmit}>
+        <button type="submit" className="btn btn-default">
           Submit
         </button>
       </form>
@@ -200,13 +222,3 @@ React.render(
   <SearchPane />,
   document.getElementById('tab_content_anchor')
 );
-
-/*React.render(
-  <JobBox url="/search"  />,
-  document.getElementById('job_box')
-);
-React.render(
-  <CandidateAffix />,
-  document.getElementById('candidate_affix')
-);
-//*/
