@@ -23,3 +23,12 @@ TABLES['submissions'] = (
     "  `created` timestamp DEFAULT CURRENT_TIMESTAMP,"
     "  PRIMARY KEY (`id`)"
     ") ENGINE=InnoDB")
+TABLES['users'] = (
+    "CREATE TABLE IF NOT EXISTS `users` ("
+    "  `id` int(12) NOT NULL AUTO_INCREMENT,"
+    "  `name` varchar(64) NOT NULL,"
+    "  `email` varchar(64) NOT NULL,"
+    "  `company_id` varchar(16) NOT NULL,"
+    "  `created` timestamp DEFAULT CURRENT_TIMESTAMP,"
+    "  PRIMARY KEY (`id`)"
+    ") ENGINE=InnoDB")
